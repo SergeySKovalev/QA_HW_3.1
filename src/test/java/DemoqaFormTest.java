@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class DemoqaFormTest {
 
@@ -17,12 +16,12 @@ public class DemoqaFormTest {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-
     }
 
     @Test
     void FillFormTest() {
         open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
         $("#firstName").setValue("Sergey");
         $("#lastName").setValue("Kovalev");
         $("#userEmail").setValue("Test8956Test@test.test");
@@ -43,16 +42,16 @@ public class DemoqaFormTest {
         $("#city").$(byText("Delhi")).click();
         $("#submit").click();
 
-        $(".table-responsive").shouldHave(text("Sergey"),
-                (text("Kovalev")),
-                (text("Test8956Test@test.test")),
-                (text("Female")),
-                (text("9111813795")),
-                (text("04 October,1993")),
-                (text("Hindi")),
-                (text("Sports, Music")),
-                (text("Test.jpg")),
-                (text("Saint-Petersburg, Nevskiy 38")),
-                (text("NCR Delhi")));
+
+        $(".table-responsive").shouldHave(text("Sergey Kovalev"));
+        $(".table-responsive").shouldHave(text("Test8956Test@test.test"));
+        $(".table-responsive").shouldHave(text("Female"));
+        $(".table-responsive").shouldHave(text("9111813795"));
+        $(".table-responsive").shouldHave(text("04 October,1993"));
+        $(".table-responsive").shouldHave(text("Hindi"));
+        $(".table-responsive").shouldHave(text("Sports, Music"));
+        $(".table-responsive").shouldHave(text("Test.jpg"));
+        $(".table-responsive").shouldHave(text("Saint-Petersburg, Nevskiy 38"));
+        $(".table-responsive").shouldHave(text("NCR Delhi"));
     }
 }
